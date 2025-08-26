@@ -513,6 +513,82 @@ document.addEventListener('click', (event) => {
         });
     }
 });
+// ================= CX Tracer =================
+const cxForm = document.getElementById('cxForm');
+const cxDate = document.getElementById('cxDate');
+const recordsTable = document.querySelector('#recordsTable tbody');
+
+// Default date = today
+if (cxDate) {
+  cxDate.value = new Date().toISOString().split('T')[0];
+}
+
+// Save record to Supabase
+if (cxForm) {
+  cxForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!currentUser) {
+      showToast("Please login to save records", "error");
+      return;
+    }
+
+    const record = {
+      customer_id: document.getElementById('customerId').value,
+      name: document.getElementById('customerName').value,
+      date: document.getElementById('cxDate').value,
+      status: document.getElementById('status').value,
+      comment: document.getElementById('comment').value,
+      user_id: currentUser.id
+    };
+
+    const { error } = await supabase.from('cx_records').insert([record]);
+
+    if (error) {
+      showToast(error.message, 'error');
+    } else {
+      showToast("Record saved successfully!", "success");
+      cxForm.reset();
+      cxDate.value = new Date().toISOString().split('T')[0];
+      fetchCxRecords();
+    }
+  });
+}
+
+// Fetch records from Supabase
+async function fetchCxRecords() {
+  if (!currentUser) return;
+
+  const { data, error } = await supabase
+    .from('cx_records')
+    .select('*')
+    .eq('user_id', currentUser.id)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    showToast(error.message, 'error');
+    return;
+  }
+
+  recordsTable.innerHTML = '';
+  data.forEach(r => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${r.customer_id}</td>
+      <td>${r.name || ''}</td>
+      <td>${r.date}</td>
+      <td>${r.status}</td>
+      <td>${r.comment || ''}</td>
+    `;
+    recordsTable.appendChild(row);
+  });
+}
+
+// Call fetch after login
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN' && session) {
+    fetchCxRecords();
+  }
+});
 
 
 
