@@ -1036,4 +1036,34 @@
 #addNoteBtn {
   display: none;
 }
+.cx-section {
+  margin-top: 40px;
+  padding: 20px;
+  background: var(--light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.cx-form {
+  display: grid;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.records-table th, .records-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.records-table th {
+  background: var(--gradient-2);
+  color: white;
+}
 
