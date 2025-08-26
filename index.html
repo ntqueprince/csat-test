@@ -99,6 +99,56 @@
     </section>
 
     <section class="notes-section container" id="notesSection">
+        <section class="cx-section container" id="cxSection">
+  <div class="welcome-message">
+    <h2>CX Tracer</h2>
+    <p>Track Happy and Irate customers with CSAT feedback.</p>
+  </div>
+
+  <form id="cxForm" class="cx-form">
+    <div class="form-group">
+      <label for="customerId">Customer ID *</label>
+      <input type="text" id="customerId" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="customerName">Customer Name</label>
+      <input type="text" id="customerName" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="cxDate">Date *</label>
+      <input type="date" id="cxDate" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="status">Status *</label>
+      <select id="status" class="form-control" required>
+        <option value="Happy">Happy</option>
+        <option value="Irate">Irate</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="comment">Comment</label>
+      <textarea id="comment" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Record</button>
+  </form>
+
+  <div class="records-container">
+    <h3>Saved Records</h3>
+    <table id="recordsTable" class="records-table">
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
         <div class="welcome-message">
             <h2>Your Personal Notebook</h2>
             <p>Create, organize, and manage your notes, tasks, and routines all in one place.</p>
